@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/external_modules/encoding.min.js"></script>
+    <script src="script.js" type="module"></script>
+  </head>
+  <body>
+    <div>
+      <input type="button" id="autoLogin" value="autologin"/>
+    </div>
+    <div>
+      <input type="button" id="punchIn" value="punch in"/>
+    </div>
+    <div>
+    <input type="button" id="punchOut" value="punch out"/>
+    </div>
+    <div>
+    <input type="button" id="inputConfig" value="input config"/>
+    <input type="file" id="fileBody" hidden/>
+    </div>
+    <div>
+    <label for="outputConfig">
+    <input type="button" id="outputConfig" value="output config"/>
+    <a href="#" download="config.json"></a>
+    </label>
+    </div>
+</body>
+</html>

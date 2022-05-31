@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "e-timecard-extension",
+    "description": "",
+    "version": "1.0",
+    "browser_action": {
+        "default_title": "e-timecard-extension",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "debugger",
+        "downloads",
+        "tabs",
+        "storage",
+        "https://e-timecard.ne.jp/*"
+    ]
+}
