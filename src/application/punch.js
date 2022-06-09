@@ -1,3 +1,5 @@
+import {useHeadlessWorker} from '../services/headlessWorker.js'
+
 function mergeData(dataArray){
     function isObj(val){
       if(typeof val !== 'object'){return false}
@@ -72,34 +74,42 @@ function mergeData(dataArray){
     return rtnObj
   }
 async function punchFlow({
-    moveTodayScreen,
-    postTodayData,
-    formatDate,
-    userData,
     storageTodayData,
     key,
     value
 }){
+  const hlw=useHeadlessWorker()
     try {
-      const {nextToken,todayData} = await moveTodayScreen(userData)
-      await postTodayData({
+      const {nextToken,todayData} = await hlw.moveTodayScreen()
+      await hlw.postTodayData({
         token:nextToken,
-        data:mergeData([{[key]:formatDate(value)},todayData,getPostifiedData(storageTodayData)]),
+        data:mergeData([{[key]:hlw.formatDate(value)},todayData,getPostifiedData(storageTodayData)]),
       })
     } catch (error) {
       alert(error)
     }
 }
-function punchInFlow(obj){
-    obj.key='startTime'
-    punchFlow(obj)
+export function usePunchIn(date){
+  const obj={}
+  obj.value=date
+  obj.key='startTime'
+  return function punch(){
+      punchFlow(obj)
   }
-function punchOutFlow(obj){
-    obj.key='endTime'
-    punchFlow(obj)
-  }
-const punch = {
-    punchInFlow,
-    punchOutFlow,
 }
-export default punch
+
+export function usePunchOut(date){
+  const obj={}
+  obj.value=date
+  obj.key='endTime'
+  return function punch(){
+      punchFlow(obj)
+  }
+}
+
+const usePunch={
+  usePunchIn,
+  usePunchOut,
+}
+
+export default usePunch

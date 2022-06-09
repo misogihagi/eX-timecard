@@ -99,9 +99,10 @@ const etimecardSchema={
       key:'dailyChk',
       nodeName:'input',
     }])
-
+export const configName='config.json'
 const constants={
   staffIndexURL,
   todayScreenDB,
+  configName,
 }
-  export default constants
+export default constants

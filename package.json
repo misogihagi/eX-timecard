@@ -1,0 +1,24 @@
+{
+  "name": "ex-timecard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misogihagi/eX-timecard.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/misogihagi/eX-timecard/issues"
+  },
+  "homepage": "https://github.com/misogihagi/eX-timecard#readme",
+  "devDependencies": {
+    "@types/chrome": "0.0.188",
+    "@types/encoding-japanese": "^2.0.0",
+    "encoding-japanese": "^2.0.0"
+  }
+}

@@ -1,8 +1,10 @@
 
-import ETXController from './controllers/etxController.js';
-const etxController=new ETXController()
+import useAutoLogin from './application/autoLogin.js';
+import { useInputConfig } from './application/inputConfig.js';
+import { useOutputConfig } from './application/outputConfig.js';
+import { usePunchIn,usePunchOut } from './application/punch.js';
 
-function returnFileBody(){
+function getFileBody(){
   const fileBody=document.getElementById('fileBody')
   return new Promise((resolve,reject)=>{
         function readFile(e){
@@ -18,27 +20,15 @@ function returnFileBody(){
     fileBody.click()
   })
 }
-
-function autoLogin(){
-  etxController.autoLoginFlow()
-}
-function punchInNow(){
-  etxController.punchInFlow(new Date())
-}
-function punchOutNow(){
-  etxController.punchOutFlow(new Date())
-}
-async function inputConfig(){
-  etxController.setupConfig(await returnFileBody())
-  .catch (alert)
-}
-function outputConfig(){
-  etxController.downloadConfig()
-}
+const autoLogin=useAutoLogin()
+const punchIn=usePunchIn(new Date())
+const punchOut=usePunchOut(new Date())
+const inputConfig=useInputConfig(()=>{return getFileBody()})//.catch (alert)
+const outputConfig = useOutputConfig()
 const scripts={
   autoLogin,
-  punchIn:punchInNow,
-  punchOut:punchOutNow,
+  punchIn,
+  punchOut,
   inputConfig,
   outputConfig,
 }

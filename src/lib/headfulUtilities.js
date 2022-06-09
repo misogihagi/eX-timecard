@@ -1,6 +1,7 @@
 
 import constants from '../models/constants.js'
-function moveLoginPage(moveProperties){
+
+export function moveLoginPage(moveProperties){
     function isNullOrUndefined(e){return e===null || e===undefined}
     const active = isNullOrUndefined(moveProperties.active) ? true : moveProperties.active
     const url = moveProperties.url || '_blank'
@@ -13,7 +14,7 @@ function moveLoginPage(moveProperties){
         })
     })
 }
-function postLoginData(postProperties){
+export function postLoginData(postProperties){
     //postProperties.data!
     //postProperties.execScriptTemplate!
     //postProperties.tabId!
@@ -25,7 +26,7 @@ function postLoginData(postProperties){
     });
 }
 
-function activateManagedTab(tabId){
+export function activateManagedTab(tabId){
     chrome.tabs.update(tabId,{active:true})
 } 
 const headfulUtilities = {
