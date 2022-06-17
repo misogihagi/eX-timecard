@@ -1,5 +1,8 @@
 import defaultPostObjects from "./defaultPostObjects.js";
 import constants from "../models/constants.js";
+
+import Encoding from 'encoding-japanese'
+
 function encodeURIFromArray(arr) {
   console.log(arr);
   return "%" + arr.map((i) => i.toString(16)).join("%");

@@ -2,7 +2,8 @@ import defaultPostObjects from "../lib/defaultPostObjects.js";
 import constants from "../lib/constants.js";
 import { useStorage } from "../services/storageAdapter.js";
 
-//import Encoding from 'encoding-japanese'
+import Encoding from 'encoding-japanese'
+
 function encodeURIFromArray(arr) {
   console.log(arr);
   return "%" + arr.map((i) => i.toString(16)).join("%");
