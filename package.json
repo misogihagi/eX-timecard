@@ -16,11 +16,20 @@
     "url": "https://github.com/misogihagi/eX-timecard/issues"
   },
   "homepage": "https://github.com/misogihagi/eX-timecard#readme",
+  "lint-staged": {
+    "*.{js, ts, tsx, jsx}": [
+      "eslint --quiet --fix",
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@types/chrome": "0.0.188",
     "@types/encoding-japanese": "^2.0.0",
     "encoding-japanese": "^2.0.0",
     "esbuild": "^0.14.43",
-    "esbuild-plugin-globals": "^0.1.1"
+    "esbuild-plugin-globals": "^0.1.1",
+    "eslint": "^8.17.0",
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.7.1"
   }
 }
