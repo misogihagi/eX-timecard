@@ -16,7 +16,7 @@ const ddir = __dirname + "/../dist/";
 })();
 
 build({
-  entryPoints: ["src/main.js"],
+  entryPoints: ["src/main.ts"],
   bundle: true,
   outfile: "./dist/bundle.js",
 });
