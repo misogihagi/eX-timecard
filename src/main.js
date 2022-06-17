@@ -1,45 +1,43 @@
+import useAutoLogin from "./application/autoLogin.js";
+import { useInputConfig } from "./application/inputConfig.js";
+import { useOutputConfig } from "./application/outputConfig.js";
+import { usePunchIn, usePunchOut } from "./application/punch.js";
 
-import useAutoLogin from './application/autoLogin.js';
-import { useInputConfig } from './application/inputConfig.js';
-import { useOutputConfig } from './application/outputConfig.js';
-import { usePunchIn,usePunchOut } from './application/punch.js';
-
-function getFileBody(){
-  const fileBody=document.getElementById('fileBody')
-  return new Promise((resolve,reject)=>{
-        function readFile(e){
-      const reader=new FileReader()
-      reader.onload=()=>{
-        resolve(reader.result)
-      }
-      reader.readAsText(e.target.files[0])
+function getFileBody() {
+  const fileBody = document.getElementById("fileBody");
+  return new Promise((resolve, reject) => {
+    function readFile(e) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.readAsText(e.target.files[0]);
     }
-    fileBody.addEventListener("change",readFile,{
-      once: true
-  })
-    fileBody.click()
-  })
+    fileBody.addEventListener("change", readFile, {
+      once: true,
+    });
+    fileBody.click();
+  });
 }
-const autoLogin=useAutoLogin()
-const punchIn=usePunchIn(new Date())
-const punchOut=usePunchOut(new Date())
-const inputConfig=useInputConfig(()=>{return getFileBody()})//.catch (alert)
-const outputConfig = useOutputConfig()
-const scripts={
+const autoLogin = useAutoLogin();
+const punchIn = usePunchIn(new Date());
+const punchOut = usePunchOut(new Date());
+const inputConfig = useInputConfig(() => {
+  return getFileBody();
+}); //.catch (alert)
+const outputConfig = useOutputConfig();
+const scripts = {
   autoLogin,
   punchIn,
   punchOut,
   inputConfig,
   outputConfig,
-}
+};
 
-
-
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  ["autoLogin","punchIn","punchOut",'inputConfig','outputConfig'].forEach(p=>{
-    document.getElementById(p).addEventListener("click", scripts[p])
-  });
-
-  
+document.addEventListener("DOMContentLoaded", () => {
+  ["autoLogin", "punchIn", "punchOut", "inputConfig", "outputConfig"].forEach(
+    (p) => {
+      document.getElementById(p).addEventListener("click", scripts[p]);
+    }
+  );
 });
