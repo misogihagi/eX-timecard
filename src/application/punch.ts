@@ -38,7 +38,7 @@ function mergeData(dataArray) {
 function getPostifiedData(dataObject) {
   const rtnObj = {};
   const keyStack = [];
-  function assignObj(val, key) {
+  function assignObj(val, key?) {
     let tmpObj = rtnObj;
     keyStack.slice(0, -1).forEach((k) => (tmpObj = tmpObj[k]));
     const parentKey = keyStack.slice(-1)[0];
@@ -78,7 +78,7 @@ function getPostifiedData(dataObject) {
           assignObj({}, key);
         keyStack.push(key);
         arrayToStringifiedObject(obj[key]);
-        keyStack.pop(key);
+        keyStack.pop();
       }
     } else {
       assignObj(obj);

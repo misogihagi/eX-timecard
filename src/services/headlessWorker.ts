@@ -1,6 +1,7 @@
 import defaultPostObjects from "../lib/defaultPostObjects";
 import constants from "../lib/constants";
 import { useStorage } from "../services/storageAdapter";
+import { LoginParams } from "../lib/types"
 
 import Encoding from "encoding-japanese";
 
@@ -51,10 +52,7 @@ function fetchResultHTML(resource, item) {
       return text;
     });
 }
-interface PostParams{
-  compId, userId, pwd
-}
-async function postLoginScreen({ compId, userId, pwd }:PostParams) {
+async function postLoginScreen({ compId, userId, pwd }:LoginParams) {
   const obj = defaultPostObjects.login();
   obj.compid = compId;
   obj.userid = userId;
