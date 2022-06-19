@@ -1,7 +1,7 @@
-import useAutoLogin from "./application/autoLogin.js";
-import { useInputConfig } from "./application/inputConfig.js";
-import { useOutputConfig } from "./application/outputConfig.js";
-import { usePunchIn, usePunchOut } from "./application/punch.js";
+import useAutoLogin from "./application/autoLogin";
+import { useInputConfig } from "./application/inputConfig";
+import { useOutputConfig } from "./application/outputConfig";
+import { usePunchIn, usePunchOut } from "./application/punch";
 
 function getFileBody() {
   const fileBody = document.getElementById("fileBody");

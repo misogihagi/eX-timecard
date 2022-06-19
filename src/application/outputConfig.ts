@@ -1,5 +1,5 @@
-import { useStorage } from "../services/storageAdapter.js";
-import { useDownloader } from "../services/downloadAdapter.js";
+import { useStorage } from "../services/storageAdapter";
+import { useDownloader } from "../services/downloadAdapter";
 
 export function useOutputConfig() {
   return async function downloadConfig() {

@@ -1,4 +1,5 @@
-import { useHeadlessWorker } from "../services/headlessWorker.js";
+import { useHeadlessWorker } from "../services/headlessWorker";
+import { useStorage } from "../services/storageAdapter";
 
 function mergeData(dataArray) {
   function isObj(val) {
@@ -10,7 +11,7 @@ function mergeData(dataArray) {
 
   return dataArray.reverse().reduce((acc, cur) => {
     const depth = [];
-    function getAccProp(k) {
+    function getAccProp() {
       return depth.reduce((a, c) => {
         return a[c];
       }, acc);
@@ -86,8 +87,10 @@ function getPostifiedData(dataObject) {
   arrayToStringifiedObject(dataObject);
   return rtnObj;
 }
-async function punchFlow({ storageTodayData, key, value }) {
+async function punchFlow({ key, value }) {
   const hlw = useHeadlessWorker();
+  const storage = useStorage();
+  const { today } = await storage.get("today");
   try {
     const { nextToken, todayData } = await hlw.moveTodayScreen();
     await hlw.postTodayData({
@@ -95,7 +98,7 @@ async function punchFlow({ storageTodayData, key, value }) {
       data: mergeData([
         { [key]: hlw.formatDate(value) },
         todayData,
-        getPostifiedData(storageTodayData),
+        getPostifiedData(today),
       ]),
     });
   } catch (error) {
@@ -103,20 +106,20 @@ async function punchFlow({ storageTodayData, key, value }) {
   }
 }
 export function usePunchIn(date) {
-  const obj = {};
-  obj.value = date;
-  obj.key = "startTime";
   return function punch() {
-    punchFlow(obj);
+    punchFlow({
+      key: "startTime",
+      value: date
+    });
   };
 }
 
 export function usePunchOut(date) {
-  const obj = {};
-  obj.value = date;
-  obj.key = "endTime";
   return function punch() {
-    punchFlow(obj);
+    punchFlow({
+      key: "endTime",
+      value: date
+    });
   };
 }
 

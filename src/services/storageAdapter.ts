@@ -1,8 +1,11 @@
-//var blob = new Blob([JSON.stringify(await su.getStorage(['login','today']))], { "type" : "application/json" });
+import { Config } from '../domain/config'
 
-function get(key) {
+//var blob = new Blob([JSON.stringify(await su.getStorage(['login','today']))], { "type" : "application/json" });
+type Key='login' | 'today'
+
+function get(key:Key):Promise<Config> {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get(key, (val) => resolve(val));
+    chrome.storage.sync.get(key, (val) => resolve(val as Config));
   });
 }
 function set(obj) {

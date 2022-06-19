@@ -1,7 +1,4 @@
-import { useStorage } from "../services/storageAdapter.js";
-import { useDownloader } from "../services/downloadAdapter.js";
-
-//import {useStorage} from '../services/storageAdapter.js'
+import { useStorage } from "../services/storageAdapter";
 
 export function useInputConfig(strFn) {
   const storage = useStorage();

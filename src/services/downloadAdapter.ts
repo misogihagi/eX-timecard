@@ -1,4 +1,4 @@
-import { configName } from "../lib/constants.js";
+import { configName } from "../lib/constants";
 
 export function useDownloader() {
   return {

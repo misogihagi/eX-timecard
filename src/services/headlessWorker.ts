@@ -1,8 +1,8 @@
-import defaultPostObjects from "../lib/defaultPostObjects.js";
-import constants from "../lib/constants.js";
-import { useStorage } from "../services/storageAdapter.js";
+import defaultPostObjects from "../lib/defaultPostObjects";
+import constants from "../lib/constants";
+import { useStorage } from "../services/storageAdapter";
 
-import Encoding from 'encoding-japanese'
+import Encoding from "encoding-japanese";
 
 function encodeURIFromArray(arr) {
   console.log(arr);
@@ -46,16 +46,19 @@ function fetchResultHTML(resource, item) {
       const text = decoder.decode(buffer);
       if (text.indexOf("spErrorMargin") !== -1) {
         const doc = new DOMParser().parseFromString(text, "text/html");
-        throw doc.querySelector(".spErrorMargin").innerText;
+        throw doc.querySelector<HTMLInputElement>(".spErrorMargin").innerText;
       }
       return text;
     });
 }
-async function postLoginScreen({ compId, userId, password }) {
+interface PostParams{
+  compId, userId, pwd
+}
+async function postLoginScreen({ compId, userId, pwd }:PostParams) {
   const obj = defaultPostObjects.login();
   obj.compid = compId;
   obj.userid = userId;
-  obj.pwd = password;
+  obj.pwd = pwd;
   const resultHTML = await fetchResultHTML("s/EPPLGN01/login/", obj);
   return {
     nextScreen: "todayScreen",
@@ -70,7 +73,7 @@ function parseTodayData(doc) {
     return acc;
   }, {});
 }
-async function moveTodayScreen(data) {
+async function moveTodayScreen() {
   const storage = useStorage();
   const { login } = await storage.get("login");
   const { nextScreen, resultHTML } = await postLoginScreen(login);
@@ -78,7 +81,7 @@ async function moveTodayScreen(data) {
     resultHTML,
     "text/html"
   );
-  const nextToken = afterLoginDocument.querySelector(
+  const nextToken = afterLoginDocument.querySelector<HTMLInputElement>(
     'input[name="org.apache.struts.taglib.html.TOKEN"]'
   ).value;
   const todayData = parseTodayData(afterLoginDocument);
@@ -107,7 +110,7 @@ async function getThisHalfMonth() {
     afterLoginHTMLStr,
     "text/html"
   );
-  const token = afterLoginHTML.querySelector(
+  const token = afterLoginHTML.querySelector<HTMLInputElement>(
     'input[name="org.apache.struts.taglib.html.TOKEN"]'
   ).value;
   const dataHTMLStr = await getThisHalfMonthHTML(token);
@@ -149,7 +152,6 @@ export function useHeadlessWorker() {
     moveTodayScreen,
     formatDate,
     postTodayData,
-    formatDate,
   };
 }
 
