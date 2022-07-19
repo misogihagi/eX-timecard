@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "esbuild --bundle --sourcemap src/main.ts --outfile=dist/bundle.js --servedir=dist",
     "test": "npm run test"
   },
   "repository": {
