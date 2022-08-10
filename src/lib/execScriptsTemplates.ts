@@ -7,7 +7,7 @@ export function loginScriptTemplate({ compId, userId, pwd }:LoginParams) {
     (<HTMLInputElement>document.getElementById("userId")).value = userId;
     (<HTMLInputElement>document.querySelector('input[type="password"]')).value = pwd;
     Array.from(document.querySelectorAll("a"))
-      .filter((a) => a.firstChild.nodeName === "IMG")[0]
+      .filter((a) => a?.firstChild?.nodeName === "IMG")[0]
       .click();
   });
 }

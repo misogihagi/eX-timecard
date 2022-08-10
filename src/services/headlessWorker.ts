@@ -47,7 +47,7 @@ function fetchResultHTML(resource, item) {
       const text = decoder.decode(buffer);
       if (text.indexOf("spErrorMargin") !== -1) {
         const doc = new DOMParser().parseFromString(text, "text/html");
-        throw doc.querySelector<HTMLInputElement>(".spErrorMargin").innerText;
+        throw doc?.querySelector<HTMLInputElement>(".spErrorMargin").innerText;
       }
       return text;
     });
@@ -81,7 +81,7 @@ async function moveTodayScreen() {
   );
   const nextToken = afterLoginDocument.querySelector<HTMLInputElement>(
     'input[name="org.apache.struts.taglib.html.TOKEN"]'
-  ).value;
+  )?.value;
   const todayData = parseTodayData(afterLoginDocument);
   return { nextScreen, nextToken, todayData };
 }
@@ -110,9 +110,9 @@ async function getThisHalfMonth() {
   );
   const token = afterLoginHTML.querySelector<HTMLInputElement>(
     'input[name="org.apache.struts.taglib.html.TOKEN"]'
-  ).value;
+  )?.value;
   const dataHTMLStr = await getThisHalfMonthHTML(token);
-  const dataHTML = new DOMParser().parseFromString(dataHTMLStr, "text/html");
+  const dataHTML = new DOMParser().parseFromString(dataHTMLStr.resultHTML, "text/html");
   function indexof(e) {
     return etimecardSchema[e].index;
   }
